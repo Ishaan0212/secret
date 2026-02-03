@@ -2,8 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
-
+    
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -82,24 +84,44 @@
 
         #lock button {
             margin-top: 28px;
-            background: none;
-            border: 1px solid rgba(122,0,41,0.4);
-            padding: 10px 20px;
-            border-radius: 14px;
-            font-size: 16px;
-            color: #6b0024;
+            background: linear-gradient(90deg, #ffb6c1 0%, #ffe6eb 100%);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 18px;
+            font-size: 17px;
+            color: #8b0033;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 12px 0 rgba(255,182,193,0.18);
             cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        #lock button:hover {
+            background: linear-gradient(90deg, #ffe6eb 0%, #ffb6c1 100%);
+            color: #8b0033;
+            transform: scale(1.06);
+            box-shadow: 0 4px 18px 0 rgba(255,182,193,0.28);
         }
 
         /* BIG MESSAGE */
         #lockMsg {
             margin-top: 26px;
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: #8b0033;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            background: linear-gradient(90deg, #ff4e6a 0%, #ffb6c1 100%);
+            padding: 18px 36px;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px 0 rgba(255,76,106,0.18);
             opacity: 0;
             transition: opacity 0.3s ease;
+            text-shadow: 0 2px 8px rgba(139,0,51,0.18);
+            animation: patience-alert 1.2s infinite alternate;
+        }
+        @keyframes patience-alert {
+            from { filter: brightness(1) scale(1); }
+            to { filter: brightness(1.15) scale(1.04); }
         }
 
         #lockMsg.show {
@@ -128,6 +150,7 @@
             color: #5a001f;
             font-size: 21px;
             line-height: 1.6;
+            font-family: 'Indie Flower', cursive, 'Segoe UI', sans-serif;
         }
 
         .choice-box {
@@ -147,12 +170,39 @@
             color: #6b0024;
             cursor: pointer;
             font-weight: 500;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .choice.yes {
+            background: #ffb6c1;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px 0 rgba(255,182,193,0.18);
+            font-weight: bold;
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        .choice.no {
+            opacity: 0.7;
+        }
+
+        @keyframes pulse {
+            from { box-shadow: 0 0 0 0 rgba(255,182,193,0.18); }
+            to { box-shadow: 0 0 16px 8px rgba(255,182,193,0.28); }
+        }
+
+        .fade-in-audio {
+            opacity: 0;
+            transition: opacity 1.2s;
+        }
+        .fade-in-audio.visible {
+            opacity: 1;
         }
 
         .letter-line {
             opacity: 0;
             transform: translateY(6px);
-            animation: reveal 1s ease forwards;
+            animation: reveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             margin-bottom: 18px;
         }
 
@@ -206,7 +256,7 @@
     <img src="images/photo5.jpg" class="img i5">
 </div>
 
-<!-- LOCK -->
+<!-- ZA LOCK FOR DA SITE -->
 <div id="lock">
     <h1>Hi baby, open later.</h1>
     <div id="countdown">00:00:00</div>
@@ -214,20 +264,20 @@
     <div id="lockMsg">BABE. PATIENCE.</div>
 </div>
 
-<!-- MAIN PAGE -->
+
 <div id="page">
     <div class="card" id="card">
         <p>Would you like to be my Valentine?</p>
 
         <div class="choice-box">
-            <button class="choice" onclick="yesClick()">Yes</button>
-            <button class="choice">No</button>
+            <button class="choice yes" onclick="yesClick()">Yes</button>
+            <button class="choice no">No</button>
         </div>
     </div>
 </div>
 
 <script>
-const unlockTime = new Date("2026-02-13T00:00:00+05:30"); // CHANGE THIS
+const unlockTime = new Date(Date.now() + 10 * 1000); 
 const lock = document.getElementById("lock");
 const page = document.getElementById("page");
 const countdownEl = document.getElementById("countdown");
@@ -266,53 +316,76 @@ function yesClick() {
     document.body.classList.add("faded");
 
     const letter = [
-        "BLAAA BLAAA BLAAAAA.",
-        "BLAAAAAAAAAAAAAAAAAAA.",
-        "BLAAAAA.",
-        "BLAAAAAAAAAAAAAAA",
-        "BLAAAAAAAAAAAAA."
+        "My dearest,",
+        "",
+        "Sanjeevani, though I’m not the best at putting my feelings into words or even writing anything (EVEN THIS), but I want to be honest with you. Talking to you, joking around, and even the most random things you yap about have become my favorite part of the day.",
+        "",
+        "I also want to apologize if I’ve ever made it seem like I don’t care. That was never what I meant. I truly want there to be an us in the future, and I love you very much.",
+        "",
+        "You make my days better with just your presence and I'm really grateful to have you in my life. I pray with all my heart that we remain together.",
+        "",
+        "Forever yours,",
+        "Ishaan"
     ];
 
     const card = document.getElementById("card");
     card.innerHTML = "";
 
-    letter.forEach((line, i) => {
-        const p = document.createElement("p");
-        p.className = "letter-line";
-        p.style.animationDelay = `${i * 1.1}s`;
-        p.textContent = line;
-        card.appendChild(p);
 
-        if (i === 1) {
-            const musicBtn = document.createElement("button");
-            musicBtn.className = "music-btn";
-            musicBtn.textContent = "Play the song";
-            card.appendChild(musicBtn);
+    
+    const audio = document.createElement("audio");
+    audio.src = "her.mp3";
+    audio.autoplay = true;
+    audio.controls = true;
+    audio.style.width = "100%";
+    audio.style.borderRadius = "12px";
+    audio.volume = 0;
+    card.appendChild(audio);
 
-            const slot = document.createElement("div");
-            slot.className = "spotify-slot";
-            card.appendChild(slot);
+ 
+    function fadeInAudio() {
+        let vol = 0;
+        const interval = setInterval(() => {
+            vol += 0.05;
+            if (vol >= 1) {
+                vol = 1;
+                clearInterval(interval);
+            }
+            audio.volume = vol;
+        }, 120);
+    }
+    audio.addEventListener('play', fadeInAudio);
+   
+    audio.addEventListener('canplay', () => { if (!audio.paused) fadeInAudio(); });
 
-            musicBtn.onclick = () => {
-                slot.innerHTML = `
-                    <div class="spotify-wrap show">
-                        <iframe data-testid="embed-iframe"
-                            style="border-radius:12px"
-                            src="https://open.spotify.com/embed/track/1WN4uNclrDuczTO3bCr8s1?utm_source=generator"
-                            width="100%" height="352"
-                            frameBorder="0"
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                `;
-                musicBtn.remove();
-            };
+
+    let i = 0;
+    function showNextLine() {
+        if (i < letter.length) {
+            const p = document.createElement("p");
+            p.className = "letter-line";
+            p.textContent = letter[i];
+            card.appendChild(p);
+            i++;
+            const delay = 900 + Math.random() * 600;
+            setTimeout(showNextLine, delay);
+        } else {
+            
+            setTimeout(() => {
+                const closing = document.createElement("div");
+                closing.style.marginTop = "32px";
+                closing.style.fontSize = "22px";
+                closing.style.color = "#8b0033";
+                closing.style.fontFamily = "'Indie Flower', cursive, 'Segoe UI', sans-serif";
+                closing.textContent = "P.S. I love you more every day AND IM BUILT BETTER TINGU.";
+                card.appendChild(closing);
+            }, 1200);
         }
-    });
+    }
+
+    showNextLine();
 }
 </script>
 
 </body>
 </html>
- 
