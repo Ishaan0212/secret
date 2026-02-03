@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
-    
+    <!-- Handwritten font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <style>
         body {
@@ -335,12 +335,12 @@ function yesClick() {
     
     const audio = document.createElement("audio");
     audio.src = "her.mp3";
-    audio.autoplay = true;
     audio.controls = true;
     audio.style.width = "100%";
     audio.style.borderRadius = "12px";
     audio.volume = 0;
     card.appendChild(audio);
+    audio.play();
 
  
     function fadeInAudio() {
@@ -355,8 +355,6 @@ function yesClick() {
         }, 120);
     }
     audio.addEventListener('play', fadeInAudio);
-   
-    audio.addEventListener('canplay', () => { if (!audio.paused) fadeInAudio(); });
 
 
     let i = 0;
