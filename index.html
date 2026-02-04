@@ -242,6 +242,47 @@
                 transform: translateY(0);
             }
         }
+
+        .credits {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 210vh;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            z-index: 10;
+            display: none;
+            overflow: hidden;
+            font-family: 'Indie Flower', cursive, 'Segoe UI', sans-serif;
+            text-align: center;
+        }
+
+        .credits.show {
+            display: block;
+            animation: roll 40s linear forwards;
+        }
+
+        .credits-content {
+            padding-top: 20vh;
+        }
+
+        .credits-content h1 {
+            font-size: 60px;
+            margin-bottom: 50px;
+            color: #ffb6c1;
+        }
+
+        .credits-content p {
+            font-size: 30px;
+            margin: 25px 0;
+            color: #ffe6eb;
+        }
+
+        @keyframes roll {
+            from { top: 100vh; }
+            to { top: -300vh; }
+        }
     </style>
 </head>
 
@@ -275,8 +316,27 @@
     </div>
 </div>
 
+<div id="credits" class="credits">
+    <div class="credits-content">
+        <h1>End Credits</h1>
+        <p>Directed by: Ishaan (the genius behind this masterpiece)</p>
+        <p>Written by: Ishaan (who struggled with words )</p>
+        <p>Idea Suggested by: Siddh (thanks for the idea)</p>
+        <p>Checked by: Ishita (quality control )</p>
+        <p>Programmed by: Ishaan (coded this whole thing, no biggie)</p>
+        <p>Colour Theme for Countdown: Ishaan (made it pink and pretty)</p>
+        <p>Audio Fading Genius: Ishaan (smooth volume increase, wow)</p>
+        <p>Patience Tester: Ishaan (locked it till the perfect time)</p>
+        <p>Everything Else: Ishaan (because why not?)</p>
+        <p>Special Thanks: To Sanjeevani, for being the best Valentine ever</p>
+        <p>And to anyone who waited: You're awesome too</p>
+        <p>P.S. If you skipped the countdown, shame on you!</p>
+        <p>The End... or is it?</p>
+    </div>
+</div>
+
 <script>
-const unlockTime = new Date('2026-02-07T01:17:00');
+const unlockTime = new Date("2026-02-08T01:17:00+05:30");
 const lock = document.getElementById("lock");
 const page = document.getElementById("page");
 const countdownEl = document.getElementById("countdown");
@@ -376,6 +436,14 @@ function yesClick() {
                 closing.style.fontFamily = "'Indie Flower', cursive, 'Segoe UI', sans-serif";
                 closing.textContent = "P.S. I love you more every day and i'm built better princess.";
                 card.appendChild(closing);
+
+                // Show credits after a delay
+                setTimeout(() => {
+                    document.getElementById('card').style.display = 'none';
+                    const credits = document.getElementById('credits');
+                    credits.style.display = 'block';
+                    credits.classList.add('show');
+                }, 4000);
             }, 1200);
         }
     }
